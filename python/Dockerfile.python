@@ -16,7 +16,7 @@ COPY . /app/
 # Install cron and setup the cron job
 RUN apt-get update \
     && apt-get -y install cron \
-    && echo "0 0,12 * * * python /app/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/mycron \
+    && echo "0 7,18 * * * python /app/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/mycron \
     && chmod 0644 /etc/cron.d/mycron \
     && crontab /etc/cron.d/mycron \
     && touch /var/log/cron.log
