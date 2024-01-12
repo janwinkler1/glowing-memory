@@ -1,0 +1,25 @@
+# Use the latest stable Python release
+FROM python:latest
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Python requirements file into the container
+COPY requirements.txt /app/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of your application's code into the container
+COPY . /app/
+
+# Install cron and setup the cron job
+RUN apt-get update \
+    && apt-get -y install cron \
+    && echo "0 0,12 * * * python /app/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/mycron \
+    && chmod 0644 /etc/cron.d/mycron \
+    && crontab /etc/cron.d/mycron \
+    && touch /var/log/cron.log
+
+# Start cron in the foreground
+CMD cron -f

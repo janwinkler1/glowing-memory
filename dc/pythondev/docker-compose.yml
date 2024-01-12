@@ -1,0 +1,22 @@
+version: '3.8' # version of docker compose 
+services:
+  app:
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - GMX_USER=${GMX_USER}
+      - GMX_PASSWORD=${GMX_PASSWORD}
+      - NL_RECEPIENT=${NL_RECEPIENT}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    build:
+      context: ../../python
+      dockerfile: Dockerfile.python
+    volumes:
+      - ../../python:/app
+    ports:
+      - "8000:8000" # Change the ports according to your application
+
+    command: tail -f /dev/null
