@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 
 # Your Personal Access Token
-github_token = os.get.environ('GITHUB_TOKEN')  # Replace with your actual token
+github_token = os.environ.get('GITHUB_TOKEN')  # Replace with your actual token
 
 async def get_github_repo_stat(session, repo):
     headers = {'Authorization': f'token {github_token}'}
