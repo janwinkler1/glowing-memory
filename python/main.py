@@ -1,11 +1,13 @@
 import asyncio
 import aiohttp
 import os
+from dotenv import load_dotenv
 from github_stats import get_github_repo_stats
 from hacker_news import get_top_stories, format_newsletter
 from email_sender import send_email_via_gmx
 from write_db import write_to_db
 
+load_dotenv()
 
 
 async def main():
