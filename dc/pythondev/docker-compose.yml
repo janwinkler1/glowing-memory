@@ -16,6 +16,7 @@ services:
       dockerfile: Dockerfile.python
     volumes:
       - ../../python:/app
+      - .env/:/app/.env
     ports:
       - "8000:8000" # Change the ports according to your application
 
