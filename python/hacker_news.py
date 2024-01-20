@@ -28,5 +28,9 @@ async def get_top_stories(session, last_hours=12, top_n=5):
 def format_newsletter(stories):
     newsletter_content = ""
     for story in stories:
-        newsletter_content += f"Title: {story['title']}\nLink: {story['url']}\nScore: {story['score']}\n\n"
+        title = story.get('title', 'No Title')
+        url = story.get('url', 'No URL')
+        score = story.get('score', 'No Score')
+        newsletter_content += f"Title: {title}\nLink: {url}\nScore: {score}\n\n"
     return newsletter_content
+
