@@ -1,7 +1,7 @@
 import asyncio
 from datetime import datetime
 
-async def get_top_stories(session, last_hours=12, top_n=5):
+async def get_top_stories_hn(session, last_hours=12, top_n=5):
     """
     Asynchronously fetches the top stories from Hacker News within the last specified hours.
 
@@ -52,22 +52,4 @@ async def get_top_stories(session, last_hours=12, top_n=5):
         filtered_stories, key=lambda x: x.get("score", 0), reverse=True
     )[:top_n]
     return top_stories
-
-def format_newsletter(stories):
-    """
-    Formats the given stories into a newsletter format.
-
-    Parameters:
-    stories (list): A list of Hacker News stories.
-
-    Returns:
-    str: A string formatted as a newsletter with the given stories.
-    """
-    newsletter_content = ""
-    for story in stories:
-        title = story.get("title", "No Title")
-        url = story.get("url", "No URL")
-        score = story.get("score", "No Score")
-        newsletter_content += f"Title: {title}\nLink: {url}\nScore: {score}\n\n"
-    return newsletter_content
 
