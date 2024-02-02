@@ -9,8 +9,9 @@ services:
       - DB_PORT=${DB_PORT}
       - GMX_USER=${GMX_USER}
       - GMX_PASSWORD=${GMX_PASSWORD}
-      - NL_RECEPIENT=${NL_RECEPIENT}
+      - NL_RECIPIENT=${NL_RECIPIENT}
       - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     build:
       context: ../../python
       dockerfile: Dockerfile.python
