@@ -2,3 +2,7 @@ aiohttp
 asyncio
 psycopg2-binary
 python-dotenv
+newspaper3k
+python-dotenv
+langchain
+openai
