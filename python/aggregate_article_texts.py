@@ -1,4 +1,7 @@
+import logging
 from newspaper import Article
+
+logger = logging.getLogger("newsletter.aggregate")
 
 def aggregate_article_texts(articles, text_limit=4000):
     """
@@ -14,15 +17,17 @@ def aggregate_article_texts(articles, text_limit=4000):
     aggregated_texts = []
 
     for article in articles:
+        url = article.get('url', 'unknown')
         try:
-            article_obj = Article(article['url'])
+            logger.info("Downloading article: %s", url)
+            article_obj = Article(url)
             article_obj.download()
             article_obj.parse()
-            # Limit the text of each article to `text_limit` characters to keep it concise
+            text_len = len(article_obj.text)
             aggregated_texts.append(article_obj.text[:text_limit])
+            logger.info("Parsed article (%d chars, limited to %d): %s", text_len, text_limit, url)
         except Exception as e:
-            print(f"Error fetching article from {article['url']}: {e}")
-            # Optionally, handle specific exceptions (e.g., download or parse failures)
+            logger.error("Error fetching article from %s: %s", url, e)
 
-    # Join all texts into a single string for summarization
+    logger.info("Aggregated %d articles", len(aggregated_texts))
     return " ".join(aggregated_texts)

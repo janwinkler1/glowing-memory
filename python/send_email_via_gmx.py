@@ -1,7 +1,10 @@
+import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
+
+logger = logging.getLogger("newsletter.email")
 
 def send_email_via_gmx(subject, body, to_email, html=False):
     """
@@ -37,10 +40,13 @@ def send_email_via_gmx(subject, body, to_email, html=False):
     msg.attach(part)
 
     # Connect to the SMTP server and send the email
+    logger.info("Connecting to SMTP server %s:%d...", smtp_server, smtp_port)
     with smtplib.SMTP(smtp_server, smtp_port) as server:
-        server.starttls()  # Secure the connection with TLS
+        server.starttls()
+        logger.info("TLS established, logging in as %s...", gmx_user)
         server.login(gmx_user, gmx_password)
         server.send_message(msg)
+        logger.info("Email sent to %s", to_email)
 
 # Example usage:
 #send_email_via_gmx("Test Subject", "<h1>This is an HTML Email</h1>", "janwinkler91@gmail.com", html=True)

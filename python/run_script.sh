@@ -1,8 +1,11 @@
 #!/bin/bash
-echo "Running script at $(date)" >> /var/log/script.log
+echo "=== Running script at $(date) ==="
 
-# Export all environment variables
-export $(cat /app/.env | xargs) && echo "Environment variables loaded"
+# Source environment variables (written at container startup)
+set -a
+source /etc/environment
+set +a
+echo "Environment variables loaded"
 
-# Run Python script
-/usr/local/bin/python3 /app/main.py >> /var/log/script.log 2>&1
+# Run Python script with unbuffered output
+/usr/local/bin/python3 -u /app/main.py 2>&1

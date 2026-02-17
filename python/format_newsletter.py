@@ -1,24 +1,22 @@
 import re
 
 def format_summary(text):
-    # Split the input text into sections for "Title:" and "Summary:"
-    sections = re.split(r'\n\n', text)
-    
-    # Process each section to format titles and summaries
-    formatted_sections = []
-    for section in sections:
-        # Check if the section starts with "Title:" and format accordingly
-        if section.startswith('Title:'):
-            # Remove "Title:" and bold the title
-            title = section.replace('Title:', '').strip()
-            formatted_sections.append(f'<b>{title}</b>')
-        elif section.startswith('Summary:'):
-            # Keep the summary as is, but remove "Summary:" prefix
-            summary = section.replace('Summary:', '').strip()
-            formatted_sections.append('\n\n' + summary)
-    
-    # Join the formatted sections with newlines
-    return '\n\n'.join(formatted_sections)
+    # Strip markdown bold markers and leading whitespace/hashes from the text
+    cleaned = re.sub(r'\*\*', '', text)
+    cleaned = re.sub(r'^#+\s*', '', cleaned, flags=re.MULTILINE)
+
+    # Extract title and summary using flexible regex
+    title_match = re.search(r'Title:\s*(.+)', cleaned)
+    summary_match = re.search(r'Summary:\s*(.+)', cleaned, re.DOTALL)
+
+    parts = []
+    if title_match:
+        parts.append(f'<b>{title_match.group(1).strip()}</b>')
+    if summary_match:
+        parts.append(summary_match.group(1).strip())
+
+    # Fallback: if parsing failed entirely, just return the raw text
+    return '\n\n'.join(parts) if parts else text
 
 
 def create_html_newsletter(summary_hn, summary_lobsters, hn_stories, lobsters_stories):
