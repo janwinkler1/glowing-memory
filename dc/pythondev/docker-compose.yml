@@ -20,5 +20,6 @@ services:
       - .env/:/app/.env
     ports:
       - "8000:8000" # Change the ports according to your application
+    restart: always
 
     command: cron -f
