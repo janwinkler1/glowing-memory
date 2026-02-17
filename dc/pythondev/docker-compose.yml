@@ -2,15 +2,9 @@ version: '3.8' # version of docker compose
 services:
   app:
     environment:
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
       - GMX_USER=${GMX_USER}
       - GMX_PASSWORD=${GMX_PASSWORD}
       - NL_RECIPIENT=${NL_RECIPIENT}
-      - GITHUB_TOKEN=${GITHUB_TOKEN}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     build:
       context: ../../python
