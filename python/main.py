@@ -8,7 +8,7 @@ import aiohttp
 from dotenv import load_dotenv
 
 from aggregate_article_texts import aggregate_article_texts
-from generate_exec_summary_gpt_turbo import generate_executuve_summary_mistral
+from generate_exec_summary_mistral import generate_executive_summary_mistral
 from get_top_stories_hn import get_top_stories_hn
 from get_top_stories_lobsters import get_top_stories_lobsters
 from format_newsletter import create_html_newsletter
@@ -52,10 +52,8 @@ async def main():
     aggregated_lobsters = aggregate_article_texts(selected_lobsters_stories)
 
     logger.info("Generating summaries via GPT...")
-    summary_hn = generate_executuve_summary_mistral
-(aggregated_hn)
-    summary_lobsters = generate_executuve_summary_mistral
-(aggregated_lobsters)
+    summary_hn = generate_executive_summary_mistral(aggregated_hn)
+    summary_lobsters = generate_executive_summary_mistral(aggregated_lobsters)
     logger.info("Summaries generated")
 
     logger.info("Formatting newsletter HTML...")

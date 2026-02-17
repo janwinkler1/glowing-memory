@@ -8,8 +8,7 @@ logger = logging.getLogger("newsletter.llm")
 load_dotenv()
 client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
 
-def generate_executuve_summary_mistral
-(aggregated_texts):
+def generate_executive_summary_mistral(aggregated_texts):
     """
     Generates an executive summary for the given aggregated article text using Mistral.
 
