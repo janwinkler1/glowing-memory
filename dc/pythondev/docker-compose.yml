@@ -5,7 +5,7 @@ services:
       - GMX_USER=${GMX_USER}
       - GMX_PASSWORD=${GMX_PASSWORD}
       - NL_RECIPIENT=${NL_RECIPIENT}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
     build:
       context: ../../python
       dockerfile: Dockerfile.python
