@@ -1,8 +1,0 @@
-aiohttp
-asyncio
-python-dotenv
-newspaper3k
-python-dotenv
-langchain
-mistralai
-lxml_html_clean

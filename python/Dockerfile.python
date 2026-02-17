@@ -1,26 +1,24 @@
-# Use the latest stable Python release
-FROM python:latest
+FROM python:3.12-slim
 
-# Set the working directory in the container
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends cron \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy the Python requirements file into the container
-COPY requirements.txt /app/
+# Install Python dependencies from lockfile
+COPY pyproject.toml ./
+RUN uv pip install --system --no-cache .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of your application's code into the container
+# Copy application code and set up cron
 COPY . /app/
-
-# Install cron and setup the cron job
-# Route cron output to /proc/1/fd/1 so it appears in docker logs
-RUN apt-get update \
-    && apt-get -y install cron \
-    && echo "00 7,16 * * * /bin/bash /app/run_script.sh > /proc/1/fd/1 2>&1" > /etc/cron.d/mycron \
+RUN echo "00 7,16 * * * /bin/bash /app/run_script.sh > /proc/1/fd/1 2>&1" > /etc/cron.d/mycron \
     && chmod 0644 /etc/cron.d/mycron \
     && crontab /etc/cron.d/mycron \
     && touch /var/log/cron.log
 
-# Start cron in the foreground
 CMD ["cron", "-f"]
