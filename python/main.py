@@ -5,7 +5,6 @@ import random
 import sys
 
 import aiohttp
-from dotenv import load_dotenv
 
 from aggregate_article_texts import aggregate_article_texts
 from generate_exec_summary_mistral import generate_executive_summary_mistral
@@ -20,8 +19,6 @@ logging.basicConfig(
     stream=sys.stdout,
 )
 logger = logging.getLogger("newsletter")
-
-load_dotenv()
 
 
 async def main():

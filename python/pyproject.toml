@@ -5,9 +5,7 @@ requires-python = ">=3.11"
 dependencies = [
     "aiohttp",
     "resend",
-    "python-dotenv",
     "newspaper3k",
-    "langchain",
     "mistralai",
     "lxml-html-clean",
 ]

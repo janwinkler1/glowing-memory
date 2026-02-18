@@ -1,11 +1,9 @@
 import logging
 import os
 from mistralai import Mistral
-from dotenv import load_dotenv
 
 logger = logging.getLogger("newsletter.llm")
 
-load_dotenv()
 client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
 
 
