@@ -4,6 +4,7 @@ from datetime import datetime
 
 logger = logging.getLogger("newsletter.hn")
 
+
 async def get_top_stories_hn(session, last_hours=12, top_n=5):
     """
     Asynchronously fetches the top stories from Hacker News within the last specified hours.
@@ -51,13 +52,16 @@ async def get_top_stories_hn(session, last_hours=12, top_n=5):
     tasks = [fetch_story(story_id) for story_id in story_ids[:1000]]
     all_stories = await asyncio.gather(*tasks)
     filtered_stories = [story for story in all_stories if story is not None]
-    logger.info("Filtered to %d stories from last %d hours", len(filtered_stories), last_hours)
+    logger.info(
+        "Filtered to %d stories from last %d hours", len(filtered_stories), last_hours
+    )
 
     # Sort the stories by score and pick the top n stories
     top_stories = sorted(
         filtered_stories, key=lambda x: x.get("score", 0), reverse=True
     )[:top_n]
     for story in top_stories:
-        logger.info("HN story: [%d pts] %s", story.get("score", 0), story.get("title", "?"))
+        logger.info(
+            "HN story: [%d pts] %s", story.get("score", 0), story.get("title", "?")
+        )
     return top_stories
-

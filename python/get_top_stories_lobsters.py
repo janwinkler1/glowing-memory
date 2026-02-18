@@ -3,6 +3,7 @@ from datetime import datetime, timezone, timedelta
 
 logger = logging.getLogger("newsletter.lobsters")
 
+
 async def get_top_stories_lobsters(session, last_hours=12, top_n=5):
     """
     Asynchronously fetches the top stories from Lobsters within the last specified hours.
@@ -24,16 +25,25 @@ async def get_top_stories_lobsters(session, last_hours=12, top_n=5):
 
     # Convert Lobsters' created_at to datetime and filter stories
     def filter_stories(story):
-        story_time = datetime.fromisoformat(story['created_at'].rstrip('Z'))
+        story_time = datetime.fromisoformat(story["created_at"].rstrip("Z"))
         return current_time - story_time < timedelta(hours=last_hours)
 
     filtered_stories = list(filter(filter_stories, stories))
-    logger.info("Filtered to %d Lobsters stories from last %d hours", len(filtered_stories), last_hours)
+    logger.info(
+        "Filtered to %d Lobsters stories from last %d hours",
+        len(filtered_stories),
+        last_hours,
+    )
 
     # Sort and select top N stories based on score
-    top_stories = sorted(filtered_stories, key=lambda x: x['score'], reverse=True)[:top_n]
+    top_stories = sorted(filtered_stories, key=lambda x: x["score"], reverse=True)[
+        :top_n
+    ]
     for story in top_stories:
-        logger.info("Lobsters story: [%d pts] %s", story.get('score', 0), story.get('title', '?'))
+        logger.info(
+            "Lobsters story: [%d pts] %s",
+            story.get("score", 0),
+            story.get("title", "?"),
+        )
 
     return top_stories
-

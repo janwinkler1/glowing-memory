@@ -6,6 +6,7 @@ import os
 
 logger = logging.getLogger("newsletter.email")
 
+
 def send_email_via_gmx(subject, body, to_email, html=False):
     """
     Sends an email using GMX's SMTP server, with support for plain text or HTML content.
@@ -48,6 +49,6 @@ def send_email_via_gmx(subject, body, to_email, html=False):
         server.send_message(msg)
         logger.info("Email sent to %s", to_email)
 
-# Example usage:
-#send_email_via_gmx("Test Subject", "<h1>This is an HTML Email</h1>", "janwinkler91@gmail.com", html=True)
 
+# Example usage:
+# send_email_via_gmx("Test Subject", "<h1>This is an HTML Email</h1>", "janwinkler91@gmail.com", html=True)

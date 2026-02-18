@@ -3,6 +3,7 @@ from newspaper import Article
 
 logger = logging.getLogger("newsletter.aggregate")
 
+
 def aggregate_article_texts(articles, text_limit=4000):
     """
     Fetches and aggregates text from a list of article URLs.
@@ -17,7 +18,7 @@ def aggregate_article_texts(articles, text_limit=4000):
     aggregated_texts = []
 
     for article in articles:
-        url = article.get('url', 'unknown')
+        url = article.get("url", "unknown")
         try:
             logger.info("Downloading article: %s", url)
             article_obj = Article(url)
@@ -25,7 +26,12 @@ def aggregate_article_texts(articles, text_limit=4000):
             article_obj.parse()
             text_len = len(article_obj.text)
             aggregated_texts.append(article_obj.text[:text_limit])
-            logger.info("Parsed article (%d chars, limited to %d): %s", text_len, text_limit, url)
+            logger.info(
+                "Parsed article (%d chars, limited to %d): %s",
+                text_len,
+                text_limit,
+                url,
+            )
         except Exception as e:
             logger.error("Error fetching article from %s: %s", url, e)
 
