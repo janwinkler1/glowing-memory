@@ -12,7 +12,7 @@ from generate_exec_summary_mistral import generate_executive_summary_mistral
 from get_top_stories_hn import get_top_stories_hn
 from get_top_stories_lobsters import get_top_stories_lobsters
 from format_newsletter import create_html_newsletter
-from send_email_via_gmx import send_email_via_gmx
+from send_email import send_email
 
 logging.basicConfig(
     level=logging.INFO,
@@ -70,9 +70,7 @@ async def main():
 
     recipient = os.environ.get("NL_RECIPIENT")
     logger.info("Sending newsletter to %s...", recipient)
-    send_email_via_gmx(
-        "Daily Digest with Summary", newsletter_html, recipient, html=True
-    )
+    send_email("Daily Digest with Summary", newsletter_html, recipient, html=True)
     logger.info("Newsletter sent successfully")
 
 

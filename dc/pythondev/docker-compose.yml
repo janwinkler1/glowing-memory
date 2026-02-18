@@ -1,10 +1,10 @@
 services:
   app:
     environment:
-      - GMX_USER=${GMX_USER}
-      - GMX_PASSWORD=${GMX_PASSWORD}
       - NL_RECIPIENT=${NL_RECIPIENT}
       - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_FROM=${RESEND_FROM}
     build:
       context: ../../python
       dockerfile: Dockerfile.python
