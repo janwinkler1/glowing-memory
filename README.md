@@ -38,8 +38,6 @@ docker compose exec app python /app/src/main.py
 
 ## Formatting and Linting
 ```
-```
-```
 ruff format
 ruff check --fix
 ```
@@ -47,6 +45,4 @@ ruff check --fix
 ## Tests
 ```
 uv run pytest
-```
-
 ```
