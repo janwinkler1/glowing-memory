@@ -5,7 +5,8 @@ requires-python = ">=3.11"
 dependencies = [
     "aiohttp==3.13.3",
     "resend==2.22.0",
-    "newspaper3k==0.2.8",
+    "beautifulsoup4==4.14.3",
+    "requests==2.32.5",
     "mistralai==1.12.3",
     "lxml-html-clean==0.4.3",
 ]

@@ -1,5 +1,7 @@
 import logging
-from newspaper import Article
+
+import requests
+from bs4 import BeautifulSoup
 
 logger = logging.getLogger("newsletter.aggregate")
 
@@ -21,11 +23,18 @@ def aggregate_article_texts(articles, text_limit=4000):
         url = article.get("url", "unknown")
         try:
             logger.info("Downloading article: %s", url)
-            article_obj = Article(url)
-            article_obj.download()
-            article_obj.parse()
-            text_len = len(article_obj.text)
-            aggregated_texts.append(article_obj.text[:text_limit])
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+
+            soup = BeautifulSoup(response.text, "html.parser")
+            for tag in soup(["script", "style", "nav", "header", "footer", "aside"]):
+                tag.decompose()
+
+            content = soup.find("article") or soup.find("main") or soup.body
+            text = content.get_text(separator=" ", strip=True) if content else ""
+
+            text_len = len(text)
+            aggregated_texts.append(text[:text_limit])
             logger.info(
                 "Parsed article (%d chars, limited to %d): %s",
                 text_len,
