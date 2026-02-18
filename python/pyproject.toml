@@ -10,3 +10,8 @@ dependencies = [
     "mistralai",
     "lxml-html-clean",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.1",
+]
