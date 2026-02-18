@@ -7,7 +7,7 @@ It fetches top stories from [Hacker News](https://news.ycombinator.com) and
 free tier Mistral LLM to produce a short summary of the top stories, formats everything into an HTML
 email and sends it via [Resend](https://resend.com).
 
-Yes, this is massive overkill.
+Yes, this is massive overkill. This is why i added Github Actions for a simple CI and renovateBot to keep dependencies up to date.
 
 ## What it does
 
@@ -28,10 +28,25 @@ Set the following environment variables:
 | `NL_RECIPIENT` | Recipient email address |
 | `SELECTION_MODE` | `top` (default) or `random` |
 
-## Running
 
-```bash
-uv run src/main.py
+## Build
+```
+docker compose build
+docker compose up -d
+docker compose exec app python /app/src/main.py
 ```
 
-A GitHub Actions workflow is included to run this on a schedule. Also, I use renovate to keep dependencies up-to-date.
+## Formatting and Linting
+```
+```
+```
+ruff format
+ruff check --fix
+```
+
+## Tests
+```
+uv run pytest
+```
+
+```
