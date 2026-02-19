@@ -12,10 +12,10 @@ Yes, this is massive overkill. This is why i added Github Actions for a simple C
 ## What it does
 
 1. Fetches top stories from HN and Lobsters (async, naturally)
-2. Scrapes and truncates the linked article text
-3. Generates AI summaries via the Mistral API
-4. Formats a styled HTML newsletter
-5. Emails it to you
+1. Scrapes and truncates the linked article text
+1. Generates AI summaries via the Mistral API
+1. Formats a styled HTML newsletter
+1. Emails it to you
 
 ## Configuration
 
@@ -28,8 +28,8 @@ Set the following environment variables:
 | `NL_RECIPIENT` | Recipient email address |
 | `SELECTION_MODE` | `top` (default) or `random` |
 
-
 ## Build
+
 ```
 docker compose build
 docker compose up -d
@@ -37,12 +37,14 @@ docker compose exec app python /app/src/main.py
 ```
 
 ## Formatting and Linting
+
 ```
 ruff format
 ruff check --fix
 ```
 
 ## Tests
+
 ```
 uv run pytest
 ```
