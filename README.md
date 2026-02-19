@@ -35,9 +35,9 @@ environment variables won't be set.
 ### Building and Running
 
 ```
--docker compose build
--docker compose up -d
--docker compose exec app python /app/src/main.py
+docker compose build
+docker compose up -d
+docker compose exec app python /app/src/main.py
 ```
 
 That's it. The container handles everything else.
