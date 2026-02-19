@@ -34,5 +34,5 @@ jobs:
 
       - name: Build container
         run: docker compose build
-
-
+        env:
+          TAG: ci
