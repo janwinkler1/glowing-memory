@@ -6,7 +6,7 @@ A gloriously over-engineered daily newsletter digest — built to self-host on a
 always-on machine.
 
 It fetches top stories from [Hacker News](https://news.ycombinator.com) and
-[Lobste.rs](https://lobste.rs), scrapes the linked articles, runs them through a free tier Mistral
+[Lobste.rs](https://lobste.rs), scrapes the linked articles, runs them through a free tier [Mistral](https://console.mistral.ai/)
 LLM to produce a short summary, formats everything into a styled HTML email and sends it via
 [Resend](https://resend.com).
 
