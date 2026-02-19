@@ -1,3 +1,5 @@
+![CI](https://github.com/janwinkler1/digestif/actions/workflows/ci.yml/badge.svg)
+
 # digestif
 
 A gloriously over-engineered daily newsletter digest.
